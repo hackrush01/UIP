@@ -1,5 +1,5 @@
 ('/home/hackrush_st/git-repos/UIP/build/UIP/daemoniker-0.2.2-py3.5.egg',
  None,
- {'*.pyd', '*.so', '*.py', 'EGG-INFO', '*.pyo', '*.pyc'},
+ {'*.pyo', '*.pyc', '*.pyd', 'EGG-INFO', '*.so', '*.py'},
  'DATA',
  [])
