@@ -10,17 +10,6 @@ from uiplib.settings import (HOME_DIR,
                              NUMBER_OF_IMAGES_TO_PARSE,
                              settings_file_path)
 
-def get_packages():
-    base_dir = 'uiplib'
-    packages = [base_dir]
-    for (path, dirs, files) in os.walk(base_dir):
-        try:
-            dirs.remove('__pycache__')
-        except ValueError:
-            pass
-        if '__init__.py' in files:
-            packages.extend([os.path.join(path, dir) for dir in dirs])
-    return packages
 
 # Make Home Directory
 if not os.path.exists(HOME_DIR):
