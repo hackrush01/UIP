@@ -2,10 +2,7 @@ import os
 import sys
 import time
 import json
-from uiplib.scrape import get_images
-from threading import Thread
 from uiplib.settings import HOME_DIR
-from daemoniker import send, SIGTERM
 
 
 def get_percentage(unew, uold, start):
@@ -21,15 +18,6 @@ def make_dir(dirpath):
         os.chmod(dirpath, 0o777)
 
 
-def exit_UIP():
-    pid_file = os.path.join(HOME_DIR, 'daemon-uip.pid')
-    if os.path.exists(pid_file):
-        send(pid_file, SIGTERM)
-        os.remove(pid_file)
-    print("\nExiting UIP hope you had a nice time :)")
-    sys.exit(0)
-
-
 def update_settings(new_settings):
     settings_file = os.path.join(HOME_DIR, 'settings.json')
     temp_file = os.path.join(HOME_DIR, 'temp.json')
@@ -37,21 +25,6 @@ def update_settings(new_settings):
         _file.write(json.dumps(new_settings, indent=4, sort_keys=True))
     os.remove(settings_file)
     os.rename(temp_file, settings_file)
-
-
-# Class to create threads for get_images
-
-
-class onlineFetch(Thread):
-
-    def __init__(self, url, directory, count):
-        Thread.__init__(self)
-        self.url = url
-        self.directory = directory
-        self.count = count
-
-    def run(self):
-        get_images(self.url, self.directory, self.count)
 
 
 def check_version():

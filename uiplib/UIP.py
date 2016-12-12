@@ -3,7 +3,7 @@ import os
 import shutil
 from uiplib.settings import ParseSettings, HOME_DIR
 from uiplib.scheduler import scheduler
-from uiplib.utils import make_dir, exit_UIP
+from uiplib.utils import make_dir
 from setup import makeHomeDirs
 from daemoniker import Daemonizer, send, SIGTERM
 
@@ -63,6 +63,15 @@ def main():
     except KeyboardInterrupt:
         exit_UIP()
 
+
 if __name__ == '__main__':
 	makeHomeDirs()
 	main()
+
+def exit_UIP():
+    pid_file = os.path.join(HOME_DIR, 'daemon-uip.pid')
+    if os.path.exists(pid_file):
+        send(pid_file, SIGTERM)
+        os.remove(pid_file)
+    print("\nExiting UIP hope you had a nice time :)")
+    sys.exit(0)
